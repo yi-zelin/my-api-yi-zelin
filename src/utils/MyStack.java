@@ -3,8 +3,8 @@ package utils;
 import java.util.EmptyStackException;
 
 public class MyStack<E> {
-    Node first;
-    Node last;
+    public Node<E> first;
+    public Node<E> last;
     int size;
 
     //构造函数
@@ -16,10 +16,10 @@ public class MyStack<E> {
 
     static class Node<E>{
         E data;
-        Node next;
+        Node<E> next;
 
         //构造函数
-        public Node(Node next, E data) {
+        public Node(Node<E> next, E data) {
             this.data = data;
             this.next = next;
         }
@@ -38,7 +38,7 @@ public class MyStack<E> {
     }
 
     public E push(E item){
-        Node t = new Node(last,item);
+        Node<E> t = new Node<>(last,item);
         last = t;
         if(size == 0){
             first = t;
@@ -52,7 +52,7 @@ public class MyStack<E> {
         if(size == 0){
             throw new EmptyStackException();
         }
-        E t = (E) last.data;
+        E t = last.data;
         //移除并替换第一个元素
         detach();
         return t;
@@ -63,7 +63,7 @@ public class MyStack<E> {
         if(size == 0){
             throw new EmptyStackException();
         }
-        return (E) last.data;
+        return last.data;
     }
 
     public int size(){
@@ -71,10 +71,7 @@ public class MyStack<E> {
     }
 
     public boolean isEmpty(){
-        if(size() == 0){
-            return true;
-        }
-        return false;
+        return size() == 0;
     }
 
 }

@@ -1,6 +1,5 @@
 package utils;
 
-import single.SinglyLinkedList;
 
 import java.util.NoSuchElementException;
 
@@ -74,7 +73,7 @@ public class MyQueue<E> {
     }
 
     public boolean isEmpty(){
-        if(size == 0){
+        if(size == 0) {
             return true;
         }
         return false;
