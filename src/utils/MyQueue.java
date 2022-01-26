@@ -4,8 +4,8 @@ package utils;
 import java.util.NoSuchElementException;
 
 public class MyQueue<E> {
-    Node first;
-    Node last;
+    public Node<E> first;
+    public Node<E> last;
     int size;
 
     //构造函数
@@ -17,7 +17,7 @@ public class MyQueue<E> {
 
     static class Node<E> {
         E data;
-        Node next;
+        Node<E> next;
 
         //构造函数
         public Node(E data) {
@@ -25,14 +25,14 @@ public class MyQueue<E> {
             this.next = null;
         }
 
-        public Node(Node next, E data) {
+        public Node(Node<E> next, E data) {
             this.data = data;
             this.next = next;
         }
     }
 
     private void append(E item){
-        Node t = new Node(last.next,item);
+        Node<E> t = new Node<>(last.next,item);
         //是否为第一个
         if(size == 0){
             first = t;
@@ -55,7 +55,7 @@ public class MyQueue<E> {
     }
 
     public E remove(){
-        E t = (E) first.data;
+        E t = first.data;
         if(size == 0){
             throw new NoSuchElementException();
         }
@@ -64,8 +64,7 @@ public class MyQueue<E> {
     }
 
     public E peek(){
-        E t =(E) first.data;
-        return t;
+        return first.data;
     }
 
     public int size(){
@@ -73,9 +72,6 @@ public class MyQueue<E> {
     }
 
     public boolean isEmpty(){
-        if(size == 0) {
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 }
