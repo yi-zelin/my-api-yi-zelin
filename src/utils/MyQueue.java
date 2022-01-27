@@ -32,7 +32,7 @@ public class MyQueue<E> {
     }
 
     private void append(E item){
-        Node<E> t = new Node<>(last.next,item);
+        Node<E> t = new Node<>(item);
         //是否为第一个
         if(size == 0){
             first = t;
