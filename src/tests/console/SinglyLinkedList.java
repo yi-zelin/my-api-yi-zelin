@@ -2,6 +2,7 @@ package tests.console;
 
 public class SinglyLinkedList {
     public static void main(String[] args) {
+
         single.SinglyLinkedList<Integer> a = new single.SinglyLinkedList<>();
         System.out.println("\n********** add,append,toString test **********");
         System.out.println(a);
@@ -39,5 +40,15 @@ public class SinglyLinkedList {
         System.out.println(b);
         b.remove(2);
         System.out.println(b);
+
+
+
+        //new test
+        single.SinglyLinkedList<Integer> c = new single.SinglyLinkedList<>();
+        System.out.println(c);
+        c.add(0,111);
+        System.out.println(c);
+        c.add(0,111);
+        System.out.println(c);
     }
 }

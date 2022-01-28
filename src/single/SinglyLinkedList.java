@@ -31,7 +31,7 @@ public class SinglyLinkedList<T> {
     }
 
     private void checkIndex(int index){
-        if(index >= size){
+        if(index > size){
             throw new IndexOutOfBoundsException();
         }
     }
@@ -87,8 +87,9 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean add(T item){
+        int t = size;
         append(item);
-        return true;
+        return size == t+1;
     }
 
     public void add(int index, T item){
