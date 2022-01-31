@@ -5,16 +5,17 @@
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
+//
 //import org.junit.jupiter.api.Test;
+//import single.SinglyLinkedList;
 //
-//import utils.LinkedList;
 //
-//public class LinkedListJUnitTest {
+//public class SLLJUnitTest {
 //
 //    @Test
-//    void testLinkedList() {
+//    void testSinglyLinkedList() {
 //
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test Default Constructor( ) ----------------");
 //        System.out.println("size before: " + list.size());
 //        assertTrue(list.add("Augustus"));
@@ -32,7 +33,7 @@
 //    @Test
 //    void testAddE() {
 //
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test Add(item) ----------------");
 //        assertTrue(list.add("Augustus"));
 //        assertTrue(list.add("Balbinus"));
@@ -51,7 +52,7 @@
 //    @Test
 //    void testAddIntE() {
 //
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test Add(index, item) ----------------");
 //        System.out.println(list);
 //        System.out.println();
@@ -78,57 +79,10 @@
 //        System.out.println();
 //    }
 //
-//    @Test
-//    void testClear() {
-//        LinkedList<String> list = new LinkedList<String>();
-//        System.out.println("---------------- Test Clear( ) ----------------");
-//        assertTrue(list.add("Augustus"));
-//        assertTrue(list.add("Balbinus"));
-//        assertTrue(list.add("Commodus"));
-//        assertTrue(list.add("Decius"));
-//        assertTrue(list.add("Florianus"));
-//        assertTrue(list.add("Gallienus"));
-//        assertTrue(list.add("Valerian"));
-//
-//        assertEquals(7, list.size());
-//        System.out.println(list);
-//
-//        System.out.println("size before: " + list.size());
-//        list.clear();
-//        assertEquals(0, list.size());
-//        System.out.println("size after: " + list.size());
-//
-//        System.out.println();
-//    }
-//
-//
-//    @Test
-//    void testContains() {
-//        LinkedList<String> list = new LinkedList<String>();
-//        System.out.println("---------------- Test Contains(E e) --------------");
-//        assertTrue(list.add("Augustus"));
-//        assertTrue(list.add("Balbinus"));
-//        assertTrue(list.add("Commodus"));
-//        assertTrue(list.add("Decius"));
-//        assertTrue(list.add("Florianus"));
-//        assertTrue(list.add("Gallienus"));
-//        assertTrue(list.add("Valerian"));
-//
-//        assertTrue(list.contains("Augustus"));
-//        assertTrue(list.contains("Commodus"));
-//        assertTrue(list.contains("Valerian"));
-//        assertFalse(list.contains("Tiberius"));
-//
-//        System.out.println(list);
-//        System.out.println("has Commodus? " + list.contains("Commodus"));
-//        System.out.println("has Valerian? " + list.contains("Valerian"));
-//        System.out.println("has Tiberius? " + list.contains("Tiberius"));
-//        System.out.println();
-//    }
 //
 //    @Test
 //    void testGet() {
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test Get( ) ----------------");
 //        assertTrue(list.add("Augustus"));
 //        assertTrue(list.add("Balbinus"));
@@ -153,43 +107,17 @@
 //        System.out.println();
 //    }
 //
-//    @Test
-//    void testIndexOf() {
-//        System.out.println();
-//        LinkedList<String> list = new LinkedList<String>();
-//        System.out.println("-------------- Test indexOf(E e) --------------");
-//        list.add(0, "Augustus");
-//        list.add(1, "Balbinus");
-//        list.add(2, "Cresus");
-//        list.add(3, "Commodus");
-//        list.add(4, "Decius");
-//        list.add(5, "Florianus");
-//        list.add(6, "Valerian");
-//
-//        System.out.println(list);
-//        assertEquals(0 , list.indexOf("Augustus"));
-//        assertEquals(3 , list.indexOf("Commodus"));
-//        assertEquals(6 , list.indexOf("Valerian"));
-//        assertEquals(-1, list.indexOf("Tiberius"));
-//        assertEquals(7 , list.size());
-//
-//        System.out.println("-----------------------------------------------");
-//        System.out.println("indexOf -1 \t" + list.indexOf("Tiberius"));
-//        System.out.println("indexOf 0 \t"  + list.indexOf("Augustus"));
-//        System.out.println("indexOf 2 \t"  + list.indexOf("Cresus"));
-//        System.out.println("indexOf 3 \t"  + list.indexOf("Commodus"));
-//        System.out.println("indexOf 6 \t"  + list.indexOf("Valerian"));
-//
-//        System.out.println(list);
-//        System.out.println();
-//    }
 //
 //    @Test
 //    void testIsEmpty() {
 //        System.out.println();
 //
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("-------------- Test isEmpty() --------------");
+//        System.out.println(list);
+//        assertEquals(0, list.size());
+//        assertTrue(list.isEmpty());
+//
 //        list.add(0,"Augustus");
 //        list.add(1,	"Balbinus");
 //        list.add(2,	"Cresus");
@@ -201,54 +129,14 @@
 //        assertEquals(7, list.size());
 //        assertFalse(list.isEmpty());
 //        System.out.println(list);
-//        list.clear();
-//
-//        System.out.println(list);
-//        assertEquals(0, list.size());
-//        assertTrue(list.isEmpty());
 //    }
 //
-//    @Test
-//    void testRemoveE(){
-//
-//        LinkedList<String> list = new LinkedList<String>();
-//        System.out.println("---------------- Test RemoveE() ----------------");
-//        assertTrue(list.add("Augustus"));
-//        assertTrue(list.add("Balbinus"));
-//        assertTrue(list.add("Commodus"));
-//        assertTrue(list.add("Decius"));
-//        assertTrue(list.add("Gallienus"));
-//        assertTrue(list.add("Septimius"));
-//        assertTrue(list.add("Tiberius"));
-//        assertTrue(list.add("Valerian"));
-//
-//        System.out.println(list);
-//        System.out.println("size before: " + list.size());
-//
-//        assertTrue(list.remove("Decius"));
-//        assertTrue(list.remove("Commodus"));
-//        assertTrue(list.remove("Gallienus"));
-//        assertTrue(list.remove("Balbinus"));
-//        assertTrue(list.remove("Augustus"));
-//        assertFalse(list.remove("Decius"));
-//        assertTrue(list.remove("Septimius"));
-//
-//        System.out.println(list);
-//        System.out.println("I - size after: " + list.size());
-//        assertTrue(list.remove("Valerian"));
-//        System.out.println("II - size after: " + list.size());
-//
-//        assertFalse(list.remove("Florianus"));
-//        System.out.println(list);
-//        System.out.println("size after Flo: " + list.size());
-//        System.out.println();
-//    }
 //
 //    @Test
 //    void testRemoveInt() {
 //
 //        System.out.println();
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test RemoveInt() ----------------");
 //        assertTrue(list.add("Augustus"));
 //        assertTrue(list.add("Balbinus"));
@@ -278,7 +166,7 @@
 //
 //    @Test
 //    void testSet() {
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("------------------ Test Set( ) ------------------");
 //        assertTrue(list.add("Augustus"));
 //        assertTrue(list.add("Balbinus"));
@@ -298,10 +186,11 @@
 //        assertThrows(IndexOutOfBoundsException.class, () -> list.set(8, "Hera"));
 //    }
 //
+//
 //    @Test
 //    void testSize() {
 //
-//        LinkedList<String> list = new LinkedList<String>();
+//        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 //        System.out.println("---------------- Test Size() ----------------");
 //        assertTrue(list.add("Augustus"));
 //        assertTrue(list.add("Balbinus"));
@@ -317,4 +206,3 @@
 //    }
 //
 //}
-//
