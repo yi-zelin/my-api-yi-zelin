@@ -31,7 +31,7 @@ public class SinglyLinkedList<T> {
     }
 
     private void checkIndex(int index){
-        if(index > size){
+        if(index > size && index < 0){
             throw new IndexOutOfBoundsException();
         }
     }
