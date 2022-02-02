@@ -5,14 +5,7 @@ import java.util.LinkedList;
 import utils.MyQueue;
 
 public class MyQueueTest {
-
-    public void evensBeforeOdds(MyQueue queue) {}
-
-    public static void evensBeforeOddsTest(){
-        System.out.println();
-        System.out.println("========== E V E N   B E F O R E   O D D S  ==========");
-    }
-
+    
     public static void intro(){
         System.out.println();
         System.out.println();
