@@ -11,7 +11,7 @@ public class SinglyLinkedList<T> {
 
 
     /**
-     * 定义Node class
+     * 定义Node class.
      * @param <T>
      */
     private static class Node<T> {
