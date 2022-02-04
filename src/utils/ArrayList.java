@@ -10,7 +10,7 @@ public class ArrayList<E> {
     private int size;
     private E[] data;
 
-    //空参构造
+    //空参构造.
     public ArrayList(){
         this(DEFAULT_CAPACITY);
     }
