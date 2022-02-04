@@ -5,7 +5,14 @@ package utils;
  * using an array.
  *****************************************************************/
 
-public class ArrayList {
+public class ArrayList<E> {
+    static final int DEFAULT_CAPACITY = 10;
+    private int size;
+    private E[] data;
 
-    //TODO : Complete Body with Data Fields, Methods and Classes
+    @SuppressWarnings("unchecked")
+    public ArrayList(int capacity){
+        data = (E[]) new Object[capacity];
+        size = 0;
+    }
 }
