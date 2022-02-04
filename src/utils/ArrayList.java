@@ -52,7 +52,12 @@ public class ArrayList<E> {
     }
 
     public boolean contains(E item){
-        return true;
+        for(int i = 0; i < size; i++){
+            if(data[i] == item){
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -68,10 +73,12 @@ public class ArrayList<E> {
     }
 
     public E get(int index){
-        return null;
+        checkIndex(index);
+        return data[index];
     }
 
     public int indexOf(E item){
+        //what is this? can't understand the description on canvas
         return 0;
     }
 
