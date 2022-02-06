@@ -38,7 +38,6 @@ public class ArrayList<E> {
 
         shiftRight(index);
         data[index] = item;
-        size ++;
     }
 
     private void checkIndex(int index){
@@ -78,8 +77,12 @@ public class ArrayList<E> {
     }
 
     public int indexOf(E item){
-        //what is this? can't understand the description on canvas
-        return 0;
+        for(int i = 0; i < size; i++) {
+            if (data[i] == item) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean isEmpty(){
@@ -87,19 +90,31 @@ public class ArrayList<E> {
     }
 
     public E remove(int index){
-        return null;
+        E temp = get(index);
+        shiftLeft(index);
+        return temp;
     }
 
     public boolean remove(E item){
+        int temp = indexOf(item);
+        if(temp == -1){
+            return false;
+        }
+        remove(temp);
         return true;
     }
 
     public E set(int index, E item){
+        checkIndex(index);
+        data[index] = item;
         return null;
     }
 
     private void shiftLeft(int index){
-
+        for (int i = index; data[i] != null; i++) {
+            data[i] = data[i+1];
+        }
+        size --;
     }
 
     private void shiftRight(int index){
@@ -110,6 +125,7 @@ public class ArrayList<E> {
             data[i] = data[i-1];
         }
         data[index] = null;
+        size ++;
     }
 
     public int size(){
@@ -117,6 +133,17 @@ public class ArrayList<E> {
     }
 
     public String toString(){
-        return "";
+        if(isEmpty()){
+            return "[]";
+        }
+        StringBuilder toString = new StringBuilder("[");
+        for(int i = 0; data[i] != null; i++){
+            if(data[i+1] == null){
+                toString.append(data[i]).append("]");
+            }else {
+                toString.append(data[i]).append(", ");
+            }
+        }
+        return toString.toString();
     }
 }
