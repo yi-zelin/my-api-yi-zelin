@@ -33,11 +33,12 @@ public class ArrayList<E> {
     }
 
     public void add(int index, E item){
-        //capacity check
-        ensureCapacity(data.length);
-
-        shiftRight(index);
-        data[index] = item;
+        if(size == 0){
+            add(item);
+        }else {
+            shiftRight(index);
+            data[index] = item;
+        }
     }
 
     private void checkIndex(int index){
@@ -106,8 +107,9 @@ public class ArrayList<E> {
 
     public E set(int index, E item){
         checkIndex(index);
+        E temp = data[index];
         data[index] = item;
-        return null;
+        return temp;
     }
 
     private void shiftLeft(int index){
@@ -119,9 +121,8 @@ public class ArrayList<E> {
 
     private void shiftRight(int index){
         ensureCapacity(data.length);
-        index -= data.length;
         // latter = former
-        for (int i = -1; i > index; i--) {
+        for (int i = size; i > index; i--) {
             data[i] = data[i-1];
         }
         data[index] = null;
