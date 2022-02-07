@@ -42,13 +42,14 @@ public class ArrayList<E> {
     }
 
     private void checkIndex(int index){
-        if(index < 0 || index > size){
+        if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
     }
 
     public void clear(){
         data =(E[]) new Object[data.length];
+        size = 0;
     }
 
     public boolean contains(E item){
@@ -65,7 +66,7 @@ public class ArrayList<E> {
         if (size == capacity) {
             E[] temp = (E[]) new Object[data.length + DEFAULT_CAPACITY];
             //clone data
-            for (int i = 0; i <= data.length; i++) {
+            for (int i = 0; i < data.length; i++) {
                 temp[i] = data[i];
             }
             this.data = temp;
