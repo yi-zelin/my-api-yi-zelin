@@ -47,6 +47,7 @@ public class ArrayList<E> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void clear(){
         data =(E[]) new Object[data.length];
         size = 0;
@@ -66,9 +67,7 @@ public class ArrayList<E> {
         if (size == capacity) {
             E[] temp = (E[]) new Object[data.length + DEFAULT_CAPACITY];
             //clone data
-            for (int i = 0; i < data.length; i++) {
-                temp[i] = data[i];
-            }
+            System.arraycopy(data, 0, temp, 0, data.length);
             this.data = temp;
         }
     }
@@ -123,9 +122,7 @@ public class ArrayList<E> {
     private void shiftRight(int index){
         ensureCapacity(data.length);
         // latter = former
-        for (int i = size; i > index; i--) {
-            data[i] = data[i-1];
-        }
+        if (size - index >= 0) System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = null;
         size ++;
     }
