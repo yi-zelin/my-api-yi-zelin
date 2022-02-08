@@ -1,16 +1,19 @@
 package ticTacToe;
 
+import java.util.Random;
+
 public class Tic {
     public int[] player;
     public int[] pc;
-    public int[] possible;
+    public boolean[] emptyPoint;
     public int steep;
+    int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
 
     //构造函数 & 重启
     public Tic(){
         player = new int[5];
         pc = new int[5];
-        possible = new int[9];
+        emptyPoint = new boolean[9];
         steep = 0;
     }
 
@@ -24,11 +27,82 @@ public class Tic {
 
     /**
      * 基本方法
-     *      检测胜利
-     *      检测是否有绝杀点或者被绝杀点, 如果有, 自动补点
-     *      字典匹配不上且无关键点时, 随机下
+     *    *  检测胜利
+     *    *  检测是否有绝杀点或者被绝杀点, 如果有, 自动补点
+     *    *  字典匹配不上且无关键点时, 随机下
      */
-    public void ifwin(){
+    private boolean contains(int[] list, int input){
+        for (int j : list) {
+            if (j == input) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private boolean checkwin(int[] list){
+        for(int i = 0;i < checklist.length;i++){
+            if(contains(list,checklist[i][0]) &&
+                    contains(list,checklist[i][1]) &&
+                    contains(list,checklist[i][2])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ifwin(){
+        checkwin(player);
+        checkwin(pc);
+    }
+
+    private int boolToIntPositive(boolean input){
+        return input ? 1 : 0;
+    }
+    private int boolToIntNegative(boolean input){
+        return input ? -1 : 0;
+    }
+
+    /**
+     * 检测是否有绝杀点或者被绝杀点
+     * 如果有, 返回该点的值
+     * 如果没有, 返回 0
+     */
+    private int dangerOrWinPoint(){
+        for (int[] ints : checklist) {
+            //检查是否有缺一个空白点的情况
+            if (boolToIntPositive(contains(player, ints[0])) +
+                    boolToIntPositive(contains(player, ints[1])) +
+                    boolToIntPositive(contains(player, ints[2])) +
+                    boolToIntNegative(contains(pc, ints[0])) +
+                    boolToIntNegative(contains(pc, ints[1])) +
+                    boolToIntNegative(contains(pc, ints[2])) == 2) {
+
+                // 返回该空白点坐标
+                for (int t = 0; t <= 3; t++) {
+                    if (!contains(player, ints[t]) &&
+                            !contains(pc, ints[t])) {
+                        return ints[t];
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    //随机返回空点位
+    private int randomEmptyPoint(){
+        //复制所有空点位
+        int randomRange = 0;
+        int[] tempEmptyPosition = new int[9];
+        Random random = new Random();
+        //剔除非空点位
+        for(int i = 0; i < 9; i++){
+            if(emptyPoint[i]){
+                tempEmptyPosition[randomRange] = i;
+            }
+        }
+        return tempEmptyPosition[random.nextInt(randomRange+1)];
     }
 }
+
