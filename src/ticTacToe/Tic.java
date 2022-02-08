@@ -71,12 +71,13 @@ public class Tic {
     private int dangerOrWinPoint(){
         for (int[] ints : checklist) {
             //检查是否有缺一个空白点的情况
-            if (boolToIntPositive(contains(player, ints[0])) +
+            int temp = boolToIntPositive(contains(player, ints[0])) +
                     boolToIntPositive(contains(player, ints[1])) +
                     boolToIntPositive(contains(player, ints[2])) +
                     boolToIntNegative(contains(pc, ints[0])) +
                     boolToIntNegative(contains(pc, ints[1])) +
-                    boolToIntNegative(contains(pc, ints[2])) == 2) {
+                    boolToIntNegative(contains(pc, ints[2]));
+            if (temp == 2 || temp == -2) {
 
                 // 返回该空白点坐标
                 for (int t = 0; t <= 3; t++) {
