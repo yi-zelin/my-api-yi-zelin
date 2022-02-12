@@ -45,10 +45,10 @@ public class Tic {
     }
 
     private boolean checkwin(boolean[] list){
-        for(int i = 0;i < checklist.length;i++){
-            if(contains(list,checklist[i][0]) &&
-                    contains(list,checklist[i][1]) &&
-                    contains(list,checklist[i][2])){
+        for (int[] ints : checklist) {
+            if (contains(list, ints[0]) &&
+                    contains(list, ints[1]) &&
+                    contains(list, ints[2])) {
                 return true;
             }
         }
