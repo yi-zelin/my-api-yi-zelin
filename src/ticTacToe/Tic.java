@@ -3,26 +3,30 @@ package ticTacToe;
 import java.util.Random;
 
 public class Tic {
-    public int[] player;
-    public int[] pc;
+    public boolean[] player;
+    public boolean[] pc;
     public boolean[] emptyPoint;
     public int steep;
     int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
 
     //构造函数 & 重启
     public Tic(){
-        player = new int[5];
-        pc = new int[5];
+        player = new boolean[5];
+        pc = new boolean[5];
         emptyPoint = new boolean[9];
         steep = 0;
     }
 
     //添加棋子
     public void playerAdd(int t){
-        player[t] = 1;
+        player[t] = true;
+        emptyPoint[t] = false;
+        steep ++;
     }
-    public void pc(int t){
-        pc[t] = 1;
+    public void pcAdd(int t){
+        pc[t] = true;
+        emptyPoint[t] = false;
+        steep ++;
     }
 
     /**
@@ -31,16 +35,16 @@ public class Tic {
      *    *  检测是否有绝杀点或者被绝杀点, 如果有, 自动补点
      *    *  字典匹配不上且无关键点时, 随机下
      */
-    private boolean contains(int[] list, int input){
-        for (int j : list) {
-            if (j == input) {
+    private boolean contains(boolean[] list, int input){
+        for (int i = 0; i <= 8; i++) {
+            if (list[input-1]) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean checkwin(int[] list){
+    private boolean checkwin(boolean[] list){
         for(int i = 0;i < checklist.length;i++){
             if(contains(list,checklist[i][0]) &&
                     contains(list,checklist[i][1]) &&
@@ -104,6 +108,28 @@ public class Tic {
             }
         }
         return tempEmptyPosition[random.nextInt(randomRange+1)];
+    }
+
+    /**
+     * o for player
+     * × for pc
+     */
+    public void print(){
+        String[] printList = {"1","2","3","4","5","6","7","8","9"};
+        for(int i = 0; i <= 8; i++){
+            if(!emptyPoint[i]){
+                if(player[i]){
+                    printList[i] = "o";
+                }else {
+                    printList[i] = "×";
+                }
+            }
+        }
+        System.out.println(" "+printList[0]+" │ "+printList[1]+" │ "+printList[2]+" ");
+        System.out.println("───┼───┼───");
+        System.out.println(" "+printList[3]+" │ "+printList[4]+" │ "+printList[5]+" ");
+        System.out.println("───┼───┼───");
+        System.out.println(" "+printList[6]+" │ "+printList[7]+" │ "+printList[8]+" ");
     }
 }
 
