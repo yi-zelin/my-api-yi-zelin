@@ -8,24 +8,25 @@ public class Tic {
     public boolean[] emptyPoint;
     public int steep;
     int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
+    public boolean hardMod;
 
     //构造函数 & 重启
     public Tic(){
-        player = new boolean[5];
-        pc = new boolean[5];
-        emptyPoint = new boolean[9];
+        player = new boolean[9];
+        pc = new boolean[9];
+        emptyPoint = new boolean[]{true, true, true, true, true, true, true, true, true};
         steep = 0;
     }
 
     //添加棋子
     public void playerAdd(int t){
-        player[t] = true;
-        emptyPoint[t] = false;
+        player[t-1] = true;
+        emptyPoint[t-1] = false;
         steep ++;
     }
     public void pcAdd(int t){
-        pc[t] = true;
-        emptyPoint[t] = false;
+        pc[t-1] = true;
+        emptyPoint[t-1] = false;
         steep ++;
     }
 
@@ -44,7 +45,7 @@ public class Tic {
         return false;
     }
 
-    private boolean checkwin(boolean[] list){
+    public boolean checkwin(boolean[] list){
         for (int[] ints : checklist) {
             if (contains(list, ints[0]) &&
                     contains(list, ints[1]) &&
@@ -55,10 +56,7 @@ public class Tic {
         return false;
     }
 
-    public void ifwin(){
-        checkwin(player);
-        checkwin(pc);
-    }
+
 
     private int boolToIntPositive(boolean input){
         return input ? 1 : 0;
@@ -110,7 +108,9 @@ public class Tic {
         return tempEmptyPosition[random.nextInt(randomRange+1)];
     }
 
+
     /**
+     *
      * o for player
      * × for pc
      */
@@ -131,5 +131,7 @@ public class Tic {
         System.out.println("───┼───┼───");
         System.out.println(" "+printList[6]+" │ "+printList[7]+" │ "+printList[8]+" ");
     }
+
+
 }
 
