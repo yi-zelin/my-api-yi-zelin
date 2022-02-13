@@ -81,11 +81,10 @@ public class Tic {
             if (temp == 2 | temp == -2) {
                 // 返回该空白点坐标
                 for (int t = 0; t < 3; t++) {
-                    if (!contains(player, ints[t]) && !contains(pc, ints[t])) {
-                        if (temp == 2) {
-                            dangerPoint = ints[t];
-                            return true;
-                        }
+                    if (!contains(pc, ints[t]) && temp == 2) {
+                        dangerPoint = ints[t];
+                        return true;
+                    }else if(!contains(player, ints[t]) && temp == -2){
                         dangerPoint = ints[t];
                         station = true;
                     }
