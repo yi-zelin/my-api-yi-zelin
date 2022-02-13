@@ -8,7 +8,7 @@ public class Tic {
     public boolean[] emptyPoint;
     public int steep;
     int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
-    public boolean hardMod;
+    public int dangerPoint;
 
     //构造函数 & 重启
     public Tic(){
@@ -16,6 +16,7 @@ public class Tic {
         pc = new boolean[9];
         emptyPoint = new boolean[]{true, true, true, true, true, true, true, true, true};
         steep = 0;
+        dangerPoint = -1;
     }
 
     //添加棋子
@@ -45,7 +46,7 @@ public class Tic {
         return false;
     }
 
-    public boolean checkwin(boolean[] list){
+    public boolean checkWin(boolean[] list){
         for (int[] ints : checklist) {
             if (contains(list, ints[0]) &&
                     contains(list, ints[1]) &&
@@ -70,7 +71,7 @@ public class Tic {
      * 如果有, 返回该点的值
      * 如果没有, 返回 0
      */
-    private int dangerOrWinPoint(){
+    public boolean dangerOrWinPoint(){
         for (int[] ints : checklist) {
             //检查是否有缺一个空白点的情况
             int temp = boolToIntPositive(contains(player, ints[0])) +
@@ -85,16 +86,17 @@ public class Tic {
                 for (int t = 0; t <= 3; t++) {
                     if (!contains(player, ints[t]) &&
                             !contains(pc, ints[t])) {
-                        return ints[t];
+                        dangerPoint = ints[t];
+                        return true;
                     }
                 }
             }
         }
-        return 0;
+        return false;
     }
 
     //随机返回空点位
-    private int randomEmptyPoint(){
+    public int randomEmptyPoint(){
         //复制所有空点位
         int randomRange = 0;
         int[] tempEmptyPosition = new int[9];
@@ -119,9 +121,9 @@ public class Tic {
         for(int i = 0; i <= 8; i++){
             if(!emptyPoint[i]){
                 if(player[i]){
-                    printList[i] = "o";
+                    printList[i] = "\033[32;4mo\033[0m";
                 }else {
-                    printList[i] = "×";
+                    printList[i] = "\033[36;4m×\033[0m";
                 }
             }
         }
