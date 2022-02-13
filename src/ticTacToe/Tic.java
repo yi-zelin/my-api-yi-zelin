@@ -7,7 +7,7 @@ public class Tic {
     public boolean[] pc;
     public boolean[] emptyPoint;
     public int steep;
-    int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
+    static int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
     public int dangerPoint;
 
     //构造函数 & 重启
@@ -40,12 +40,7 @@ public class Tic {
      *    *  字典匹配不上且无关键点时, 随机下
      */
     private boolean contains(boolean[] list, int input){
-        for (int i = 0; i <= 8; i++) {
-            if (list[input-1]) {
-                return true;
-            }
-        }
-        return false;
+        return list[input-1];
     }
 
     public boolean checkWin(boolean[] list){
@@ -61,11 +56,8 @@ public class Tic {
 
 
 
-    private int boolToIntPositive(boolean input){
+    private int boolToInt(boolean input){
         return input ? 1 : 0;
-    }
-    private int boolToIntNegative(boolean input){
-        return input ? -1 : 0;
     }
 
     /**
@@ -74,18 +66,18 @@ public class Tic {
      * 如果没有, 返回 0
      */
     public boolean dangerOrWinPoint(){
+        boolean station = false;
         for (int[] ints : checklist) {
-            //检查是否有缺一个空白点的情况
-            int temp = boolToIntPositive(contains(player, ints[0])) +
-                    boolToIntPositive(contains(player, ints[1])) +
-                    boolToIntPositive(contains(player, ints[2])) +
-                    boolToIntNegative(contains(pc, ints[0])) +
-                    boolToIntNegative(contains(pc, ints[1])) +
-                    boolToIntNegative(contains(pc, ints[2]));
-            if (temp == 2 || temp == -2) {
-
+            int temppc = boolToInt(contains(pc, ints[0])) +
+                    boolToInt(contains(pc, ints[1])) +
+                    boolToInt(contains(pc, ints[2]));
+            int tempplayer = boolToInt(contains(player, ints[0])) +
+                    boolToInt(contains(player, ints[1])) +
+                    boolToInt(contains(player, ints[2]));
+            // 先检查 pc 是有否绝杀点
+            if (temppc == 2 && tempplayer == 0) {
                 // 返回该空白点坐标
-                for (int t = 0; t <= 3; t++) {
+                for (int t = 0; t < 3; t++) {
                     if (!contains(player, ints[t]) &&
                             !contains(pc, ints[t])) {
                         dangerPoint = ints[t];
@@ -93,8 +85,19 @@ public class Tic {
                     }
                 }
             }
+            // 检查 player 是否有绝杀点, 如果 pc 没有绝杀点则返回player的绝杀点, 都没有返回false
+            if (temppc == 0 && tempplayer == 2) {
+                // 返回该空白点坐标
+                for (int t = 0; t < 3; t++) {
+                    if (!contains(player, ints[t]) &&
+                            !contains(pc, ints[t])) {
+                        dangerPoint = ints[t];
+                        station = true;
+                    }
+                }
+            }
         }
-        return false;
+        return station;
     }
 
     //随机返回空点位
@@ -102,15 +105,15 @@ public class Tic {
         int randomRange = 0;
         int[] tempEmptyPosition = new int[9];
         Random random = new Random();
-        //将所有空点位的位置复制到tempEmptyPosition (0-8)
+        //将所有空点位的位置复制到tempEmptyPosition [0-8]
         for(int i = 0; i < 9; i++){
             if(emptyPoint[i]){
                 tempEmptyPosition[randomRange] = i;
                 randomRange++;
             }
         }
-        // 将位置转化成 (1-9), 并取随机点
-        return tempEmptyPosition[random.nextInt(randomRange+1)]+1;
+        // 取随机点
+        return tempEmptyPosition[random.nextInt(randomRange)]+1;
     }
 
 

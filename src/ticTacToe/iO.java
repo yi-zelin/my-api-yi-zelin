@@ -40,28 +40,28 @@ public class iO extends Tic{
     }
 
     private void ifFinish(){
-        if (a.checkWin(player)) {
+        if (checkWin(a.player)) {
             result = " *          You Win!         *";
             end(result);
         }
-        if (a.checkWin(pc)) {
+        if (checkWin(a.pc)) {
             result = " *          You Lost         *";
             end(result);
         }
-        if (steep == 9) {
+        if (a.steep == 9) {
             result = " *         It's a tie        *";
             end(result);
         }
     }
 
     private void end(String result){
-        System.out.println("""
+        System.out.print("""
                  *****************************
                  *                           *
                  *           Finish          *
                  *                           *
                 """+ result + """
-                 
+                                  
                  *                           *
                  *         Q to quit         *
                  *   else key to play again  *
@@ -110,11 +110,11 @@ public class iO extends Tic{
     }
 
     private void ezPcRound(){
-        if (dangerOrWinPoint()){
-            pcAdd(dangerPoint);
+        if (a.dangerOrWinPoint()){
+            a.pcAdd(a.dangerPoint);
             ifFinish();
         } else {
-            pcAdd(randomEmptyPoint());
+            a.pcAdd(a.randomEmptyPoint());
             ifFinish();
         }
     }
@@ -122,7 +122,7 @@ public class iO extends Tic{
     private void playerRound(){
         System.out.println("input your point [1 ~ 9]");
         String t = scan.nextLine();
-        playerAdd(inputCheck(t));
+        a.playerAdd(inputCheck(t));
         ifFinish();
     }
 
@@ -137,7 +137,6 @@ public class iO extends Tic{
         }
         return t;
     }
-
     private boolean headsOrTails(){
         Random random = new Random();
         System.out.println("******- Heads Or Tails -*******");
@@ -159,13 +158,15 @@ public class iO extends Tic{
     }
 
     private void startGame(){
+        a = new Tic();
         startPage();
         if(headsOrTails()){
-            System.out.println("you got it, you go first");
-            print();
+            System.out.println("you got it, you go first  you: \033[32;4mo\033[0m  pc: \033[36;4m×\033[0m");
+            a.print();
             playerRound();
+        } else {
+            System.out.println("you missed, pc go first  you: \033[32;4mo\033[0m  pc: \033[36;4m×\033[0m");
         }
-        System.out.println("you missed, pc go first");
         while (steep <= 9){
             ezPcRound();
             playerRound();
