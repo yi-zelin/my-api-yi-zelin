@@ -29,18 +29,15 @@ public class iO extends Tic{
                  *   Choose Difficulty:      *
                  *   1 easy                  *
                  *   2 hard (unavailable yet)*
+                 *   Else key to quit        *
                  *                           *
-                 *****************************
-
-                \s""");
-        String difficulty = scan.nextLine();
-        if(Objects.equals(difficulty, "1")){
+                 *****************************""");
+        String i = scan.nextLine();
+        if(i.equals("1")){
             hardMod = false;
-        }else if(Objects.equals(difficulty, "2")){
+        }else if(i.equals("2")) {
             hardMod = true;
-        }
-        System.out.println("******** invalid input ********\n\n");
-        System.exit(0);
+        }else {System.exit(0);}
     }
 
     private void ifFinish(){
@@ -62,9 +59,10 @@ public class iO extends Tic{
         System.out.println("""
                  *****************************
                  *                           *
-                 *          Finished         *
+                 *           Finish          *
                  *                           *
                 """+ result + """
+                 
                  *                           *
                  *         Q to quit         *
                  *   else key to play again  *
@@ -72,7 +70,7 @@ public class iO extends Tic{
                  *****************************
                 """);
         String t = scan.nextLine();
-        if (Objects.equals(t, "Q") | Objects.equals(t, "q")){
+        if (t.equals("Q") | t.equals("q")){
             System.exit(0);
         }
         startGame();
@@ -118,6 +116,7 @@ public class iO extends Tic{
             ifFinish();
         } else {
             pcAdd(randomEmptyPoint());
+            ifFinish();
         }
     }
 
@@ -128,41 +127,46 @@ public class iO extends Tic{
         ifFinish();
     }
 
+    private  String input(){
+        String t = scan.nextLine();
+        if (!t.equals("0") & !t.equals("1")){
+            System.out.println("""
+
+                    \033[31;4mplease input 0 or 1\033[0m
+                    guess! 0 for head 1 for tail""");
+            input();
+        }
+        return t;
+    }
+
     private boolean headsOrTails(){
         Random random = new Random();
         System.out.println("******- Heads Or Tails -*******");
         // tossing
         System.out.print("tossing ");
         try {
-            Thread.sleep(400);
+            Thread.sleep(500);
             System.out.print(". ");
-            Thread.sleep(400);
+            Thread.sleep(500);
             System.out.print(". ");
-            Thread.sleep(400);
+            Thread.sleep(500);
             System.out.println(". ");
-            Thread.sleep(400);
+            Thread.sleep(500);
             System.out.println("guess! 0 for head 1 for tail");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // input
-        String t = scan.nextLine();
-        try {
-            Integer.parseInt(t);
-        } catch (NumberFormatException e){
-            System.out.println("""
-
-
-                    \033[31;4mplease input 0 or 1\033[0m""");
-        }
-        int intInput = Integer.parseInt(t);
-            return intInput == random.nextInt(2);
+        return input().equals(""+random.nextInt(2));
     }
 
     private void startGame(){
-        new iO();
         startPage();
-        if(headsOrTails()){ playerRound(); }
+        if(headsOrTails()){
+            System.out.println("you got it, you go first");
+            print();
+            playerRound();
+        }
+        System.out.println("you missed, pc go first");
         while (steep <= 9){
             ezPcRound();
             playerRound();
@@ -171,7 +175,6 @@ public class iO extends Tic{
 
 
     public static void main(String[] args) {
-        new iO().headsOrTails();
-        //new iO().inputCheck("11111111111111111");
+        new iO().startGame();
     }
 }

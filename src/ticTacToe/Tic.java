@@ -24,11 +24,13 @@ public class Tic {
         player[t-1] = true;
         emptyPoint[t-1] = false;
         steep ++;
+        print();
     }
     public void pcAdd(int t){
         pc[t-1] = true;
         emptyPoint[t-1] = false;
         steep ++;
+        print();
     }
 
     /**
@@ -97,17 +99,18 @@ public class Tic {
 
     //随机返回空点位
     public int randomEmptyPoint(){
-        //复制所有空点位
         int randomRange = 0;
         int[] tempEmptyPosition = new int[9];
         Random random = new Random();
-        //剔除非空点位
+        //将所有空点位的位置复制到tempEmptyPosition (0-8)
         for(int i = 0; i < 9; i++){
             if(emptyPoint[i]){
                 tempEmptyPosition[randomRange] = i;
+                randomRange++;
             }
         }
-        return tempEmptyPosition[random.nextInt(randomRange+1)];
+        // 将位置转化成 (1-9), 并取随机点
+        return tempEmptyPosition[random.nextInt(randomRange+1)]+1;
     }
 
 
@@ -131,7 +134,7 @@ public class Tic {
         System.out.println("───┼───┼───");
         System.out.println(" "+printList[3]+" │ "+printList[4]+" │ "+printList[5]+" ");
         System.out.println("───┼───┼───");
-        System.out.println(" "+printList[6]+" │ "+printList[7]+" │ "+printList[8]+" ");
+        System.out.println(" "+printList[6]+" │ "+printList[7]+" │ "+printList[8]+"\n");
     }
 
 
