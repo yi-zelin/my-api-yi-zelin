@@ -56,8 +56,11 @@ public class Tic {
 
 
 
-    private int boolToInt(boolean input){
+    private int boolToIntPositive(boolean input){
         return input ? 1 : 0;
+    }
+    private int boolToIntNegative(boolean input){
+        return input ? -1 : 0;
     }
 
     /**
@@ -68,29 +71,21 @@ public class Tic {
     public boolean dangerOrWinPoint(){
         boolean station = false;
         for (int[] ints : checklist) {
-            int temppc = boolToInt(contains(pc, ints[0])) +
-                    boolToInt(contains(pc, ints[1])) +
-                    boolToInt(contains(pc, ints[2]));
-            int tempplayer = boolToInt(contains(player, ints[0])) +
-                    boolToInt(contains(player, ints[1])) +
-                    boolToInt(contains(player, ints[2]));
-            // 先检查 pc 是有否绝杀点
-            if (temppc == 2 && tempplayer == 0) {
+            int temp = boolToIntPositive(contains(pc, ints[0])) +
+                    boolToIntPositive(contains(pc, ints[1])) +
+                    boolToIntPositive(contains(pc, ints[2]))+
+                    boolToIntNegative(contains(player, ints[0])) +
+                    boolToIntNegative(contains(player, ints[1])) +
+                    boolToIntNegative(contains(player, ints[2]));
+            // 2 为 pc 有绝杀点
+            if (temp == 2 | temp == -2) {
                 // 返回该空白点坐标
                 for (int t = 0; t < 3; t++) {
-                    if (!contains(player, ints[t]) &&
-                            !contains(pc, ints[t])) {
-                        dangerPoint = ints[t];
-                        return true;
-                    }
-                }
-            }
-            // 检查 player 是否有绝杀点, 如果 pc 没有绝杀点则返回player的绝杀点, 都没有返回false
-            if (temppc == 0 && tempplayer == 2) {
-                // 返回该空白点坐标
-                for (int t = 0; t < 3; t++) {
-                    if (!contains(player, ints[t]) &&
-                            !contains(pc, ints[t])) {
+                    if (!contains(player, ints[t]) && !contains(pc, ints[t])) {
+                        if (temp == 2) {
+                            dangerPoint = ints[t];
+                            return true;
+                        }
                         dangerPoint = ints[t];
                         station = true;
                     }
