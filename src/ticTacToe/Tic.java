@@ -7,7 +7,7 @@ public class Tic {
     public boolean[] pc;
     public boolean[] emptyPoint;
     public int steep;
-    static int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
+    public final int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
     public int dangerPoint;
 
     //构造函数 & 重启

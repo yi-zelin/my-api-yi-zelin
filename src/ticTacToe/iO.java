@@ -4,7 +4,7 @@ package ticTacToe;
 import java.util.Scanner;
 import java.util.Random;
 
-public class iO extends Tic{
+public class iO{
     public Tic a;
     public Scanner scan;
     public boolean restart;
@@ -40,11 +40,11 @@ public class iO extends Tic{
     }
 
     private void ifFinish(){
-        if (checkWin(a.player)) {
+        if (a.checkWin(a.player)) {
             result = " *          You Win!         *";
             end(result);
         }
-        if (checkWin(a.pc)) {
+        if (a.checkWin(a.pc)) {
             result = " *          You Lost         *";
             end(result);
         }
@@ -99,7 +99,7 @@ public class iO extends Tic{
                 \033[31;4minput out of range, your input should be [1 ~ 9]\033[0m""");
         playerRound();
         }
-        if (!emptyPoint[intInput-1]){
+        if (!a.emptyPoint[intInput-1]){
             System.out.println("""
 
 
@@ -167,7 +167,7 @@ public class iO extends Tic{
         } else {
             System.out.println("you missed, pc go first  you: \033[32;4mo\033[0m  pc: \033[36;4m×\033[0m");
         }
-        while (steep <= 9){
+        while (a.steep <= 9){
             ezPcRound();
             playerRound();
         }
