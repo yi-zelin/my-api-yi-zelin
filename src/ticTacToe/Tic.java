@@ -9,6 +9,7 @@ public class Tic {
     public int steep;
     public final int[][] checklist = {{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
     public int dangerPoint;
+    public int pcLast; //1 ~ 9
 
     //构造函数 & 重启
     public Tic(){
@@ -27,6 +28,7 @@ public class Tic {
         print();
     }
     public void pcAdd(int t){
+        pcLast = t;
         pc[t-1] = true;
         emptyPoint[t-1] = false;
         steep ++;

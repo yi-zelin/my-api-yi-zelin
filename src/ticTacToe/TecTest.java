@@ -5,9 +5,8 @@ import java.util.Map;
 
 public class TecTest {
     public static void main(String[] args) {
-        final Map<Integer,Integer> diagonal = new HashMap<>();
-        diagonal.put(1,2);diagonal.put(2,1);
-        System.out.println(diagonal.get(1));
+        Map<Integer,Integer> diagonal = new HashMap<>();
+        diagonal.put(1,9);diagonal.put(9,1);diagonal.put(3,7);diagonal.put(7,3);
         System.out.println(diagonal.get(2));
     }
 }

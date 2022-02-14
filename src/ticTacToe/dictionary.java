@@ -11,6 +11,9 @@ public class dictionary extends Tic{
     private final int[] downCorner = {7,9};
     private final int[] central = {5};
     private int formulaNumber;
+    private int subFormulaNumber;
+    private int lastPC;
+    private boolean needDictionary;
 
     /**
      * 步骤定义
@@ -29,8 +32,10 @@ public class dictionary extends Tic{
     Map<Integer,Integer> leftDown = new HashMap<>();  //左下
     Map<Integer,Integer> rightUp = new HashMap<>();   //右上
     Map<Integer,Integer> rightDown = new HashMap<>(); //右下
-    Map<Integer,Integer> middleDiagonal1 = new HashMap<>(); //目对角
+    Map<Integer,Integer> middleDiagonal1 = new HashMap<>(); //横着目对角上
     Map<Integer,Integer> middleDiagonal2 = new HashMap<>();
+    Map<Integer,Integer> middleDiagonal3 = new HashMap<>(); //竖着目对角左
+    Map<Integer,Integer> middleDiagonal4 = new HashMap<>();
 
     dictionary(){
         diagonal.put(1,9);diagonal.put(9,1);diagonal.put(3,7);diagonal.put(7,3);
@@ -45,10 +50,19 @@ public class dictionary extends Tic{
         rightDown.put(1,5);rightDown.put(2,6);rightDown.put(4,8);rightDown.put(5,9);
         middleDiagonal1.put(1,6);middleDiagonal1.put(6,1);middleDiagonal1.put(3,4);middleDiagonal1.put(4,3);
         middleDiagonal2.put(4,9);middleDiagonal2.put(9,4);middleDiagonal2.put(6,7);middleDiagonal2.put(7,6);
+        middleDiagonal3.put(1,8);middleDiagonal3.put(8,1);middleDiagonal3.put(2,7);middleDiagonal3.put(7,2);
+        middleDiagonal4.put(2,9);middleDiagonal4.put(9,2);middleDiagonal4.put(3,8);middleDiagonal4.put(8,3);
 
 
         formulaNumber = 0;
+        subFormulaNumber = 0;
+        lastPC = 0;
+        needDictionary = true;
     }
+
+    /**
+     * return 0 代表使用简单模式的通用代码
+     */
 
     private boolean checkInclude(int[] positionList,int input){
         for (int i : positionList){
@@ -57,8 +71,12 @@ public class dictionary extends Tic{
         return false;
     }
 
+    public void setLast(int last){
+        lastPC = last;
+    }
+
     private int randomInList(int[] list){
-        int i = (int) (Math.random() * (4));    //[0,3]
+        int i = (int) (Math.random() * (list.length));    // [0,max]
         return list[1];
     }
 
@@ -75,18 +93,88 @@ public class dictionary extends Tic{
             formulaNumber = 3;
             return 5;
         }
-        return 1;
-    }
-
-    private int PF_Steep2(int input){
-        if (formulaNumber == 1){
-            return 0;
-        }
-        if (formulaNumber == 2){
-
-        }
+        System.out.println("Error at playerFirst");
+        System.exit(0);
         return 0;
     }
+
+    //formulaNumber = 1
+    private int PF_Formula1_Steep2(int input){
+        // 1-1
+        if (checkInclude(upCorner,input)){
+            subFormulaNumber = 1;
+            return 0;
+        }
+        // 1-2
+        if (checkInclude(middle,input)){
+            subFormulaNumber = 2;
+            return middleDiagonal1.get(input);
+        }
+        // 1-3
+        if (checkInclude(downCorner,input)){
+            needDictionary = false;
+            return randomInList(new int[] {1,3,up.get(input)});
+        }
+        // 1-4
+        if (input == 5){
+            needDictionary = false;
+            return randomInList(new int[] {1,3,up.get(input)});
+        }
+        System.out.println("Error at PF_Formula1_Steep2");
+        System.exit(0);
+        return 0;
+    }
+
+    //formulaNumber = 2
+    private int PF_Formula2_Steep2(int input){
+        needDictionary = false;
+        // 2-1-1
+        if (input == diagonal.get(lastPC)){
+            if (lastPC == 1 | lastPC == 9){
+                return randomInList(new int[] {3,7});
+            } else {
+                return randomInList(new int[] {1,9});
+            }
+        } else {
+            // 2-1
+            return 0;
+        }
+    }
+
+    //formulaNumber = 3
+    private int PF_Formula3_Steep2(int input){
+        // 3-1
+        if (checkInclude())
+
+        System.out.println("Error at PF_Formula3_Steep2");
+        System.exit(0);
+        return 0;
+    }
+
+    private int PF_Formula1_1_Steep3(int input){
+        //1-1的三个不需要继续介入的情况
+        if (middleDiagonal1.get(lastPC) == input | checkInclude(downCorner,input)){
+            needDictionary = false;
+            return 0;
+        }
+        if (input == 5){
+            needDictionary = false;
+            return opposite.get(lastPC);
+        }
+        if (input == down.get(lastPC)){
+            needDictionary = false;
+            return diagonal.get(lastPC);
+        }
+        System.out.println("Error at PF_Formula1_1_Steep3");
+        System.exit(0);
+        return 0;
+    }
+
+
+    public int useDictionary(int input){
+        return 0;
+    }
+
 
 
 }
