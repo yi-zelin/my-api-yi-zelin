@@ -1,6 +1,9 @@
 package tests.console;
 
 import utils.MyQueue;
+
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 import utils.MyStack;
 
@@ -115,27 +118,71 @@ public class MyStackTest {
     }
 
 
-    public static int removeMin(MyStack stack){
-        return 0;
+    public static int removeMin(MyStack<Integer> stack){
+        int size = stack.size();
+        int[] list = new int[size];
+        int min = stack.peek();
+        for(int i = 0; i < size; i++){
+            int temp = stack.pop();
+            list[i] = temp;
+            if (min > temp){
+                min = temp;
+            }
+        }
+        for(int i = size-1; i >= 0; i--){
+            if (list[i] != min){
+                stack.push(list[i]);
+            }
+        }
+        return min;
     }
 
 
     public static void removeMinTest(){
         System.out.println();
         System.out.println("============  R E M O V E   M I N  =============");
+        MyStack<Integer> stack = new MyStack<>();
+        stack.push(2);
+        stack.push(8);
+        stack.push(3);
+        stack.push(11);
+        stack.push(2);
+        stack.push(3);
+        stack.push(2);
+        stack.push(7);
+        stack.push(12);
+        stack.push(4);
+        System.out.println("Before:  " + stack);
+        System.out.println("Min_Int: " + removeMin(stack));
+        System.out.println("After:   " + stack);
+
     }
 
 
-    public static void queueToStack(MyQueue queue, MyStack stack){ }
+    public static Stack<String> queueToStack(MyQueue queue){
+        Stack<String> equalStack = new Stack<>();
+        for (int i = 1; i<= queue.size(); i++) {
+            equalStack.push(queue.remove().toString());
+        }
+        return equalStack;
+    }
 
 
-    public static void stackToQueue(MyStack stack, MyQueue queue){ }
+    public static Queue<String> stackToQueue(MyStack stack){
+        Queue<String> equalQueue  = new LinkedList<>(); {
+        };
+        for (int i = 1; i<= stack.size(); i++) {
+            equalQueue.add(stack.pop().toString());
+        }
+        return equalQueue;
+    }
 
 
     public static void main(String[] args) {
-        intro();
-        libraryVersionTest();
+//        intro();
+//        libraryVersionTest();
 //        myVersionTest();
+          removeMinTest();
     }
 
 
