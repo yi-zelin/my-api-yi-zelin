@@ -25,10 +25,6 @@ public class MyQueue<E> {
             this.next = null;
         }
 
-        public Node(Node<E> next, E data) {
-            this.data = data;
-            this.next = next;
-        }
     }
 
     private void append(E item){
@@ -36,7 +32,10 @@ public class MyQueue<E> {
         //是否为第一个
         if(size == 0){
             first = t;
+        }else{
+            last.next = t;
         }
+
         last = t;
         size ++;
     }
@@ -48,22 +47,23 @@ public class MyQueue<E> {
 
     private void detach(){
         first = first.next;
-        if(size == 1){
+        if(size <= 2){
             last = first;
         }
         size --;
     }
 
     public E remove(){
-        E t = first.data;
         if(size == 0){
             throw new NoSuchElementException();
         }
+        E t = first.data;
         detach();
         return t;
     }
 
     public E peek(){
+        if(size == 0){ return null; }
         return first.data;
     }
 
@@ -73,5 +73,20 @@ public class MyQueue<E> {
 
     public boolean isEmpty(){
         return size == 0;
+    }
+
+    public String toString(){
+        if(isEmpty()){
+            return "[]";
+        }
+        StringBuilder stringList = new StringBuilder("[");
+        for (MyQueue.Node<E> t = first; t != null; t = t.next) {
+            if (t.next == null) {
+                stringList.append(t.data).append("]");
+                break;
+            }
+            stringList.append(t.data).append(", ");
+        }
+        return stringList.toString();
     }
 }

@@ -1,5 +1,7 @@
 package utils;
 
+//import single.SinglyLinkedList;
+
 import java.util.EmptyStackException;
 
 public class MyStack<E> {
@@ -72,6 +74,27 @@ public class MyStack<E> {
 
     public boolean isEmpty(){
         return size() == 0;
+    }
+
+    public String toString(){
+        if(isEmpty()){
+            return "[]";
+        }
+        String [] temp = new String[size];
+        int i = size - 1;
+        for (MyStack.Node<E> t = last; t != null; t = t.next){
+            temp[i] = t.data.toString();
+            i--;
+        }
+        StringBuilder stringList = new StringBuilder("[");
+        for (int t = 0; t < size; t++) {
+            if (t+1 == size) {
+                stringList.append(temp[t]).append("]");
+                break;
+            }
+            stringList.append(temp[t]).append(", ");
+        }
+        return stringList.toString();
     }
 
 }
