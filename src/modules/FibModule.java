@@ -9,22 +9,45 @@ public class FibModule {
 
     public static long fib(int n) {
         //TODO : COMPLETE BODY OF RECURSIVE METHOD
-        return 0;
+        if (n == 0){ return 0; }
+        if (n == 1){ return 1; }
+        return fib(n-1)+fib(n-2);
     }
 
     public static long ifib(int n) {
         //TODO : COMPLETE BODY OF ITERATIVE METHOD
-        return 0;
+        if (n <= 1){ return n; }
+        long last = 1;
+        long beforeLast = 0;
+        long temp;
+        for (int i = n; i >= 2; i--){
+            temp = last;
+            last = last + beforeLast;
+            beforeLast = temp;
+        }
+        return last;
     }
 
     public static long mfib(int n) {
         //TODO : COMPLETE BODY OF MEMOIZATION METHOD
-        return 0;
+        int[] x = new int[3];
+        x[1] = 1;
+        x[2] = 1;
+        return memo(n,x);
     }
 
     private static long memo(int n, int[] x) {
         //TODO : COMPLETE BODY OF MEMOIZATION HELPER METHOD
-        return 0;
+        if (n == 1){
+            return x[2];
+        }else if (n == 0){
+            return 0;
+        }
+
+        x[2] = x[0] + x[1];
+        x[0] = x[1];
+        x[1] = x[2];
+        return memo(n-1,x);
     }
 
 
