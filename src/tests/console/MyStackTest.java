@@ -1,11 +1,9 @@
 package tests.console;
 
 import utils.MyQueue;
-
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 import utils.MyStack;
+
+import java.util.Stack;
 
 public class MyStackTest {
 
@@ -113,8 +111,24 @@ public class MyStackTest {
 
     public static void myVersionTest(){
         System.out.println();
-        System.out.println("==========  M Y   S T A C K  ==========");
-
+        System.out.println("==========  M Y   S T A C K  ==========\n");
+        MyStack<String> stack = new MyStack<>();
+        MyQueue<String> queue = new MyQueue<>();
+        stack.push("Red");
+        stack.push("Orange");
+        stack.push("Yellow");
+        stack.push("Green");
+        stack.push("Blue");
+        stack.push("Indigo");
+        stack.push("Violet");
+        System.out.println("Stack: "+stack);
+        stackToQueue(stack,queue);
+        System.out.println("After stackToQueue");
+        System.out.println("Queue: "+queue);
+        System.out.println("After queueToStack");
+        queueToStack(queue,stack);
+        System.out.println("Stack: "+stack);
+        removeMinTest();
     }
 
 
@@ -140,7 +154,7 @@ public class MyStackTest {
 
     public static void removeMinTest(){
         System.out.println();
-        System.out.println("============  R E M O V E   M I N  =============");
+        System.out.println("============  R E M O V E   M I N  =============\n");
         MyStack<Integer> stack = new MyStack<>();
         stack.push(2);
         stack.push(8);
@@ -159,30 +173,30 @@ public class MyStackTest {
     }
 
 
-    public static Stack<String> queueToStack(MyQueue queue){
-        Stack<String> equalStack = new Stack<>();
-        for (int i = 1; i<= queue.size(); i++) {
-            equalStack.push(queue.remove().toString());
+    public static void queueToStack(MyQueue<String> queue,MyStack<String> stack){
+        MyStack<String> temp = new MyStack<>();
+        int size = queue.size();
+        for (int i = 1; i<= size; i++) {
+            temp.push(queue.remove());
         }
-        return equalStack;
+        for (int i = 1; i<= size; i++) {
+            stack.push(temp.pop());
+        }
     }
 
 
-    public static Queue<String> stackToQueue(MyStack stack){
-        Queue<String> equalQueue  = new LinkedList<>(); {
-        };
-        for (int i = 1; i<= stack.size(); i++) {
-            equalQueue.add(stack.pop().toString());
+    public static void stackToQueue(MyStack<String> stack,MyQueue<String> queue){
+        int size = stack.size();
+        for (int i = 1; i<= size; i++) {
+            queue.add(stack.pop());
         }
-        return equalQueue;
     }
 
 
     public static void main(String[] args) {
-//        intro();
-//        libraryVersionTest();
-//        myVersionTest();
-          removeMinTest();
+        intro();
+        libraryVersionTest();
+        myVersionTest();
     }
 
 
