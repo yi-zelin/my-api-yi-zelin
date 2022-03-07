@@ -13,4 +13,5 @@ public interface List<E> {
     E set(int index, E item);
     int size();
     String toString();
+    Iterator<E> iterator();
 }

@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.NoSuchElementException;
+
 /*****************************************************************
  * This class LinkedList implements linked data structures using
  * a Doubly Linked List (DLL).
@@ -137,6 +139,7 @@ public class LinkedList<E> {
 
     /**
      * will check index validity first
+     * get data of node at index
      * @param index the index of the node
      * @return data of node at index
      */
@@ -285,18 +288,40 @@ public class LinkedList<E> {
             stringList.append(t.data).append(", ");
         }
         return stringList.toString();
+    }
 
-//        if (isEmpty()){
-//            return "[]";
-//        }
-//        String stringList = "[";
-//        for (Node<E> t = first; t != null; t = t.next) {
-//            if (t.next == null) {
-//                stringList = stringList + t.data + "]";
-//                break;
-//            }
-//            stringList = stringList + t.data + ", ";
-//        }
-///        return stringList;
+    private class LinkedIterator implements Iterator<E> {
+        int cursor;
+        int lastRet = -1;
+
+        LinkedIterator() {}
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public E next() {
+            if (cursor >= size){
+                throw new NoSuchElementException();
+            }
+            lastRet = cursor;
+            cursor++;
+            return get(lastRet);
+        }
+
+        @Override
+        public void remove() {
+            if (lastRet < 0)
+                throw new IllegalStateException();
+            LinkedList.this.remove(lastRet);
+            cursor = lastRet;
+            lastRet = -1;
+        }
+
+        public Iterator<E> iterator(){
+            return new LinkedIterator();
+        }
     }
 }

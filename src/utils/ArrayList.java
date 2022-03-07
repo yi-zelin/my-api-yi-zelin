@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.NoSuchElementException;
+
 /*****************************************************************
  * This class ArrayList implements a contiguous block of data
  * using an array.
@@ -145,4 +147,38 @@ public class ArrayList<E> {
         }
         return toString.toString();
     }
+
+    private class ArrayIterator implements Iterator<E> {
+        int cursor;
+        int lastRet = -1;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public E next() {
+            if (cursor >= size){
+                throw new NoSuchElementException();
+            }
+            lastRet = cursor;
+            cursor++;
+            return data[lastRet];
+        }
+
+        @Override
+        public void remove() {
+            if (lastRet < 0)
+                throw new IllegalStateException();
+            ArrayList.this.remove(lastRet);
+            cursor = lastRet;
+            lastRet = -1;
+        }
+
+        public Iterator<E> iterator(){
+            return new ArrayIterator();
+        }
+    }
+
 }
