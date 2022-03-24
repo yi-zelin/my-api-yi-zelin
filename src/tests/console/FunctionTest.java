@@ -22,11 +22,62 @@ public class FunctionTest {
 
 
     public static void main(String[] args) {
-        testOperators( (x,y) -> (double) x + y, " A D D I T I O N \t x + y", "+" );
-        testOperators( (x,y) -> x - y , "S U B T R A C T I O N \t x - y" , "-");
-        testOperators( (x,y) -> x * y , "M U L T I P L I C A T I O N \t x * y", "*");
-        testOperators( (x,y) -> (double) y / x , "D I V I S I O N \t y / x", "/");
+//        testOperators( (x,y) -> (double) x + y, " A D D I T I O N \t x + y", "+" );
+//        testOperators( (x,y) -> x - y , "S U B T R A C T I O N \t x - y" , "-");
+//        testOperators( (x,y) -> x * y , "M U L T I P L I C A T I O N \t x * y", "*");
+//        testOperators( (x,y) -> (double) y / x , "D I V I S I O N \t y / x", "/");
+        testOperators(new F2() {
+            @Override
+            public double f(int x, int y) {
+                return x+y;
+            }
+        }, " A D D I T I O N \t x + y", "+");
+        testOperators(new F2() {
+            @Override
+            public double f(int x, int y) {
+                return x-y;
+            }
+        }, "S U B T R A C T I O N \t x - y", "-");
+        testOperators(new F2() {
+            @Override
+            public double f(int x, int y) {
+                return x*y;
+            }
+        }, "M U L T I P L I C A T I O N \t x * y", "*");
+        testOperators(new F2() {
+            @Override
+            public double f(int x, int y) {
+                return y/x;
+            }
+        }, "D I V I S I O N \t y / x", "/");
 
+        testVolumeOfCylinder(new F2() {
+            @Override
+            public double f(int r, int h) {
+                return Math.PI * r * r * h;
+            }
+        });
+
+        testVolumeOfBox(new F3() {
+            @Override
+            public double f(int l, int h, int w) {
+                return l * w * h;
+            }
+        });
+
+        testAreaOfCircle(new F1() {
+            @Override
+            public double f(int r) {
+                return Math.PI * r * r;
+            }
+        });
+
+        testVolumeOfSphere(new F1() {
+            @Override
+            public double f(int r) {
+                return (double) (4 / 3) * Math.PI * r * r * r;
+            }
+        });
 //        volumeCylinder( (r, h)-> Math.PI * r * r * h );
 //
 //        volumeBox( (l, w, h) -> l * w * h);
@@ -117,4 +168,3 @@ public class FunctionTest {
     }
 
 }
-
